@@ -57,7 +57,45 @@ public:
     {
         name = p.name;
     }
+    // getters
+    int getScore()
+    {
+        return score;
+    }
+    int getLives()
+    {
+        return lives;
+    }
+    // setters
+    void increaseScore()
+    {
+        score += 10;
+    }
+    // decreases the lives or ends the game.
+    void decreaseLives()
+    {
+        if (getLives())
+        {
+            lives -= 1;
+        }else{
+            cout << "Game over...."<< endl;
+            cout << "Your score= " << score << endl;
+        }
+    }
+    void display();
+    // overloaded functions
+    friend istream &operator>>(istream &cin, Player &p);
 };
+istream &operator>>(istream &cin, Player &p)
+{
+    cout << "Enter name of the player. " << endl;
+    cin >> p.name;
+    return cin;
+}
+void Player::display()
+{
+    cout << "I am player. My name is: " << name << "\nScore = " << score << "\nLives= " << lives << endl;
+}
 class Game
 {
     Player p;
@@ -71,7 +109,17 @@ public:
         createQuestions();
         currentQuestion = allQuestions;
     }
-    static void createQuestions()
+    ~Game(){
+        delete[] allQuestions;
+    }
+    void nextQuestion(){
+        cout << currentQuestion->getQuestion() <<endl;
+        currentQuestion = allQuestions+1;
+    }
+    static void createQuestions();
+};
+Question* Game::allQuestions = NULL;
+void Game::createQuestions()
     {
         // local variable
         int numOfQuestionsToBeCreated = Question::getMaxCount();
@@ -86,9 +134,12 @@ public:
             *(allQuestions + i) = ques[i];
         }
     }
-};
 int main()
 {
-
+    cout << "=======WELCOME TO THE QUIZ GAME=======" << endl;
+    Player p1;
+    cin >> p1;
+    Game game(p1);
+    game.nextQuestion();
     return 0;
 }
