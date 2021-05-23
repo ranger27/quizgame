@@ -85,8 +85,9 @@ public:
         else
         {
             cout << "Game over...."<<endl;
-            cout << "Your Score= "<< score<<endl;
-            return false;
+            cout << "Your Score = "<< score<<endl;
+            cout << "Lives = 0"<<endl;
+            exit(0);
         }
     }
     // overloaded functions
@@ -129,7 +130,14 @@ public:
         string answer;
         cin >> answer;
         if(answer==currentQuestion->getAnswer()){
-            currentQuestion = allQuestions + 1;
+            if(currentQuestion == allQuestions+Question::getMaxCount()-1){
+                cout << "\n\n====YOU WON===="<<"\n!!! Congratulations !!!"<<endl;
+                cout << "Your Score= "<< p.getScore()<<endl;
+                exit(0);
+            }else{
+                currentQuestion = currentQuestion + 1;
+            }
+            
             p.increaseScore();
             cout << "====Game Status===="<< endl;
             cout << "Score: "<<p.getScore()<<endl;
