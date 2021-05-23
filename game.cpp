@@ -131,12 +131,12 @@ public:
         if(answer==currentQuestion->getAnswer()){
             currentQuestion = allQuestions + 1;
             p.increaseScore();
-            cout << "Game Status: "<< endl;
+            cout << "====Game Status===="<< endl;
             cout << "Score: "<<p.getScore()<<endl;
             cout << "Lives: "<<p.getLives()<<endl;
         }else{
             p.decreaseLives();
-            cout << "Game Status: "<< endl;
+            cout << "====Game Status===="<< endl;
             cout << "Score: "<<p.getScore()<<endl;
             cout << "Lives: "<<p.getLives()<<endl;
         }
@@ -146,6 +146,7 @@ public:
 Question *Game::allQuestions = NULL;
 void Game::createQuestions()
 {
+    
     // local variable
     int numOfQuestionsToBeCreated = Question::getMaxCount();
     // member variable ( //TODO: allocating dynamically so we need destructor )
@@ -158,6 +159,7 @@ void Game::createQuestions()
     {
         *(allQuestions + i) = ques[i];
     }
+    
 }
 int main()
 {
